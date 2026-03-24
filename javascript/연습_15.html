@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<title>연습 15</title>
+		<script>
+			var money = 50000
+			var grade = Number(prompt("what is your grade?"));
+			var gender = "";
+			if(grade <= 3){
+				money += 20000
+			} else if(grade >= 4){
+				money += 30000
+				gender = prompt("what is your gender? male = m, female = f");
+				if(gender == "f"){
+					money += 10000
+				}	
+			}
+			document.write(money);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

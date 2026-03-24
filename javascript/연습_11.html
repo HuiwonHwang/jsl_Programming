@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<title>연습 11</title>
+		<script>
+			var name = prompt("이름");
+			var kor = Number(prompt("국어 점수"));
+			var eng = Number(prompt("영어 점수"));
+			var mat = Number(prompt("수학 점수"));
+			var ave = (kor + eng + mat) / 3;
+			var result = "";
+			if(ave >= 90){
+				result = "A";
+			} else if(ave >= 80){
+				result = "B";
+			} else if(ave >= 70){
+				result = "C";
+			} else if(ave >= 60){
+				result = "D";
+			} else if(ave >= 50){
+				result = "E";
+			} else {
+				result = "F";
+			}
+			document.write(name + "님, 학점은" + result + "입니다.");
+			//선언하지 않은 변수를 갑자기 쓰면 오류겐
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<title>연습 10</title>
+		<script>
+			var name = prompt("성명");
+			var kor = prompt("국어 점수");
+			var eng = prompt("영어 점수");
+			var mat = prompt("수학 점수");
+			var ave = (Number(kor) + Number(eng) + Number(mat)) / 3;
+			var result = "";
+			
+			if(ave >= 80){
+				result = "합격";
+			} else {
+				result = "불합격";
+			}
+			document.write(name+"님, "+result+"입니다.");
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
