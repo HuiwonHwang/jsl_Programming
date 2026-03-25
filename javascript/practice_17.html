@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<title>practice 17</title>
+		<script>
+		//숫자 쓸 때 콤마 쓰면 안된다.
+			var salary = 1500000;
+			var departments = prompt("what is your department? 총무/영업/생산");
+			var army = prompt("you had serviced military? Y/N");
+			var age = Number(prompt("what's your age"));
+			var name = prompt("what's your name");
+			
+			if(departments == "총무"){
+				salary += 100000;
+			}else if(departments == "영업"){
+				salary += 120000;
+			} else if(departments == "생산"){
+				salary += 150000;
+			}
+			
+			if(army == "Y" ){
+				salary += 100000;
+			}
+			if(age >= 30){
+				salary += 100000;
+			}
+			document.write(salary);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

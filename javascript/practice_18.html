@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<title>practice 18</title>
+		<script>
+			var str = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz";
+			var lengthStr = str.length;
+				
+			document.write(lengthStr+"<br>");
+			
+			var result = str.substring(2,5);
+			document.write(result+"<br>");
+			var substringStr ="";
+			if(lengthStr > 3){
+				substringStr = str.substring(0,3) + "...";
+			}
+			document.write(substringStr+"<br>");
+			
+			var find = str.indexOf("g");
+			document.write(find);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
