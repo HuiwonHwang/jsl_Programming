@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>practice 27</title>
+		<script>
+			var a = [15,13,78,56,456,65,45,88,65,44,52,
+			542,755,15,138,745,462,765,45,45,78,55,
+			6,7,87,84,95,21,45,65,87,49,94,54,324,
+			456,78,321,45,48,78,45,21,35,48,21,32,
+			48,46,13,78,45,86];
+
+			var total=0;
+			var even =[];
+			
+			var odd =[];
+			for(i=0;i<a.length;i++){
+				total+=a[i];
+				if(a[i]%2==0){
+					even+= a[i]+","
+						
+				} else {
+					odd+= [i]+","
+				}
+			}
+			document.write("total is "+total+"<br>even is "+even+"<br> odd is "+odd+"<br>");
+			document.write(even.length+"" +odd.length+""+a.length);
+			
+		</script>
+	</head>
+</html>

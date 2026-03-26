@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<title>practice 26</title>
+		<script>
+			var member = [];
+			var count = Number(prompt("몇명"));
+			
+			for(i=0;i<count;i++){
+				member[i]= prompt("name");
+			}
+			for(k=0;k<member.length;k++){
+				document.write(member[k]+"<br>");
+			}
+			document.write(member);
+			document.write("====================<br>이름검색<br>");
+			var search = prompt("searching name");
+			/*
+			if(member.indexOf(search)!=-1){
+				document.write(member[member.length(search)]);
+			}
+			*/
+			
+			for(i=0;i<member.length;i++){
+				if(member[i].indexOf(search)!=-1){
+					document.write(member[i]);
+				}
+				
+			}
+		</script>
+	</head>
+</html>
