@@ -10,15 +10,18 @@
 
 			var total=0;
 			var even =[];
-			
+			var evenTotal=0;
 			var odd =[];
+			var oddTotal=0;
 			for(i=0;i<a.length;i++){
 				total+=a[i];
 				if(a[i]%2==0){
-					even+= a[i]+","
+					even+= a[i]+",";
+					evenTotal+=a[i];
 						
 				} else {
-					odd+= [i]+","
+					odd+= [i]+",";
+					oddTotal+=a[i];
 				}
 			}
 			document.write("total is "+total+"<br>even is "+even+"<br> odd is "+odd+"<br>");

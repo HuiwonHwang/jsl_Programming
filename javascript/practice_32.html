@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<title>practice 32</title>
+		<script>
+			//함수,function    괄호안에는 지역변수, 무조건 문자열로 인식
+			function getTotal(a,b){
+				var total = a+b;
+				document.write("total is "+ total);
+				return total;
+			}
+			function getTotal2(k,e,m){
+				var total = k+e+m;
+				return total;
+			}
+			
+			function getAve(total,count){
+				var ave=total/count;
+				return ave;	
+			}
+			
+			var kor = 80;
+			var eng = 50;
+
+			var mat = 30;
+			var sum = getTotal(kor,eng);
+			document.write(sum+"<br>");
+			
+			var sum = getTotal2(kor,eng,mat);
+			document.write(sum+"<br>");
+			
+			var ave = getAve(sum,3);
+			document.write(ave+"<br>");
+			
+		</script>
+	</head>
+</html>

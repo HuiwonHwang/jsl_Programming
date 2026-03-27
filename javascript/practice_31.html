@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<title></title>
+		<script>
+		
+			var score = [["홍길동","50","80","70"],["박길동","55","85","75"]];
+			var question=["성명","국어점수","영어점수","수학점수"];
+			
+			
+			for(i=0;i<score.length;i++){
+				var total =0;
+				for(k=0;k<score[i].length;k++){
+					if(k>0){
+						total+=Number(score[i][k]);
+					}
+					document.write(score[i][k]+" ");
+				}
+				document.write(total + "<br>");
+			}
+			//총점 더해서 뒤에 나타내기
+
+		</script>
+	</head>
+</html>
