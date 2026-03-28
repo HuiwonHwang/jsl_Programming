@@ -2,32 +2,23 @@
 	<head>
 		<title>star</title>
 		<script>
-			/*
-			var space = 5;
-			for(i=1;i<=5;i++){	
-				for(k=0;k<i;k++){
-					if(i%2!=0){
-						document.write("*");
-					} 
-				}
-				if((space-i)%2!=0){
-				document.write("<br>");
-				}
-			}
-			*/
-			//i에 별을 찍고 공백은 둘씩 줄어듬
-			for(i=1;i<=5;i+=2){
-				
-			}
+	
 			
-			이중반복문에 바깥쪽에
-			
-			var star = Number(prompt(how many star));
-			var space = 0;
+			var line = Number(prompt("how many line"));
+			var star = 1;
+			var space = line - 1;
 
-			for(){
-			 space = (star - i) / 2;			
-			{
+			for(i=0;i<line;i++){
+				for(k=1;k<=space;k++){
+					document.write(" ");
+				}
+				for(z=1;z<=star;z++){
+					document.write("*");
+				}	
+				document.write("<br>");
+				star += 2;
+				space--;
+			}
 			
 		</script>
 	</head>
