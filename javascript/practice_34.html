@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>practice 34</title>
+		<script>
+			function getAve(total,count){
+				var ave = total / count;
+				return ave;
+			}
+			
+			function getTotal(a,b,c){
+				var total = a + b + c;
+				return total
+			}
+			
+			var kor = Number(prompt("kor"));
+			var eng = Number(prompt("eng"));
+			var mat = Number(prompt("mat"));
+			
+			var total = getTotal(kor,eng,mat);
+			
+			var ave = getAve(total,3);
+			document.write(ave);
+		</script>
+	</head>
+</html>

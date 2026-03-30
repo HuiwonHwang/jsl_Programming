@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<title>practice 35</title>
+		<script>
+			function getTotal(a){
+				var total = 0;
+				for(i=0;i<a.length;i++){
+					total+=a[i]
+				}
+				return total;
+			}
+			function getAve(a){
+				var total = 0;
+				var ave = 0;
+				for(i=0;i<a.length;i++){
+					total+=a[i]
+				}
+				ave = total/a.length;
+				return ave
+			}
+			
+			
+			
+			var score = [50,60,70,80,65,65,70];
+			var total = getTotal(score);
+			var ave = getAve(score);
+			document.write(ave);
+			
+		</script>
+	</head>
+</html>
