@@ -12,17 +12,15 @@ public class Java_02 {
 		int age=sc.nextInt();
 		System.out.println("gender");
 		String gender = sc.next();
-		if(gender == "m") {
-			salary+= 100000;
+		if(gender.equals("m")) {
+			salary+= 10000;
 		}
 		if(age >= 30) {
 			salary+=100000 ;
 		} else {
-			salary+=500000;
+			salary+=50000;
 		}
 		System.out.println(salary);
-		
-		
 		
 		
 		
