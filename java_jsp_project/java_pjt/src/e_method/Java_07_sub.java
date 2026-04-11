@@ -10,11 +10,12 @@ public class Java_07_sub {
 	
 	String[] getList(String[] a, String b) {
 		int count = getSearch(a,b);
+		int count1=0;
 		String[] list = new String[count];
-		String name ="";
 		for(int i=0;i<a.length;i++) {
 			if(a[i].indexOf(b) !=-1) {
-				name= a[i];
+				list[count1]= a[i];
+				count1++;
 			}
 				
 	}

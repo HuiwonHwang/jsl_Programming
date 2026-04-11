@@ -7,8 +7,11 @@ public class Java_08 {
 		
 		
 		int total = sub.getTotal(50,60);
-		
-		
+		System.out.println(total);
+		total = sub.getTotal(50,60,70);
+		System.out.println(total);
+		total = sub.getTotal(50,60,70,80);
+		System.out.println(total);
 		
 		
 		
