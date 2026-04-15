@@ -13,7 +13,11 @@ public class sub_1 {
 	
 	
 	
-	
+	int getAve(int total, String count)throws Exception {
+		
+		int ave= total/Integer.parseInt(count);
+		return ave;
+	}
 	
 	
 	
