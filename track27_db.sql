@@ -13,8 +13,8 @@ create table member_황희원(
 delete from member_황희원 where name ='홍길동';
 --조회
 select id,name from member_황희원 where name like '%동%';
-select * from member_황희원 order by id desc;
-select id,name from member_황희원;
+select * from member_황희원 where id = '101';
+select id,name from member_황희원 order by id desc;
 --수정
 update member_황희원 set name='연개길동',area='부산',age=68 where id = '201';
 --행 삽입
