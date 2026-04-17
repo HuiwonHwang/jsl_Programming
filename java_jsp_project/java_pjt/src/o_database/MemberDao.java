@@ -57,17 +57,82 @@ public class MemberDao {
 				int age = rs.getInt("age");
 				dto= new MemberDto(id, name, area, age);
 			}
-			
-			
-			
 		}catch(Exception e) {
 			System.out.println("getMemberView Error: "+ sql);
 			e.printStackTrace();
 		}finally {
 			DBConnection.closeDB(con, ps, rs);
 		}
-		
 		return dto;
+	}
+
+	public String getMemberName(String id) {
+		String name=null;
+		String sql = "select name from member_황희원 where id = '"+id+"'";
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				name=rs.getString("name");
+			}
+		}catch(Exception e) {
+			System.out.println("Error: "+sql);
+			e.printStackTrace();
+		} finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		
+		
+		return name;
+	}
+
+	//회원 등록
+	public int memberSave(MemberDto dto) {
+		int result =0;
+		String sql ="insert into member_황희원(id, name, area, age) values('"+dto.getId()+"','"+dto.getName()+"','"+dto.getArea()+"',"+dto.getAge() +")";
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(sql);
+			result=ps.executeUpdate();
+			
+			
+		}catch(Exception e) {
+			System.out.println("error: "+sql);
+			e.printStackTrace();
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		return result;
+	}
+
+	//id 중복 검사하기
+	public int checkId(String id) {
+		int count = 0;
+		String sql="select count(*) as count from member_황희원 where id = '"+id+"'";
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				count=rs.getInt("count");
+			}
+			
+		}catch(Exception e) {
+			System.out.println("error: "+sql);
+			e.printStackTrace();
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		
+		return count;
 	}
 	
 	

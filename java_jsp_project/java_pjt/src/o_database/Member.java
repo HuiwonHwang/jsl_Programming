@@ -9,6 +9,31 @@ public class Member {
 		MemberDao dao= new MemberDao();
 		Scanner sc = new Scanner(System.in);
 		
+		System.out.println("id");
+		String id =sc.next();
+		
+		
+		int count = dao.checkId(id);
+		if(count==0) {
+			System.out.println("name");
+			String name=sc.next();
+			System.out.println("area");
+			String area=sc.next();
+			System.out.println("age");
+			int age =sc.nextInt();
+			MemberDto dto = new MemberDto(id,name,area,age);
+			int result =dao.memberSave(dto);
+			
+			if(result>0) {
+				System.out.println(result+"행이 삽입되었습니다.");
+			} else {
+				System.out.println("insert failed");
+			}
+		}else {
+			System.out.println("already exsist");
+		}
+		
+		/*
 		ArrayList<MemberDto> dtos= dao.getMemberList();
 		System.out.println("=============전체조회===========");
 		for(int i=0;i<dtos.size();i++) {
@@ -32,10 +57,23 @@ public class Member {
 		}else {
 			System.out.println("\tno information");
 		}
+		System.out.println("------------------------------\r");
+
+		System.out.println("about name's id?");
+		String id2 = sc.next();
+		String name =dao.getMemberName(id2);
+		System.out.println("============성명조회===========");
+		if(name!=null) {
+			System.out.println("\t"+id2+": "+name);
+		}else {
+			System.out.println("\tno information");
+		}
 		System.out.println("------------------------------");
 		
 		
 		
+		
+*/		
 	}
 
 }
