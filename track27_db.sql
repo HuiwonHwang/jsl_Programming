@@ -29,10 +29,21 @@ select count(*) as count from member_황희원 where id = '101';
 
 
 
+create table student_황희원 (
+syear varchar2(1) not null,
+sclass varchar2(2) not null , 
+sno varchar2(2) not null ,
+name varchar2(21) not null,
+kor number(3) not null,
+eng number(3) not null,
+mat number(3) not null,
+primary key(syear,sclass,sno)
+);
 
+insert into student_황희원(syear, sclass, sno, name,kor,eng,mat) 
+values('1','2','3','황희원',90,90,90);
 
-
-
+select * from student_황희원 where syear='1' and sclass='1' and sno ='1'; 
 
 
 
