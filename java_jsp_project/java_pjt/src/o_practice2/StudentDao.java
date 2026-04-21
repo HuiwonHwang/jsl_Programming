@@ -101,16 +101,16 @@ public class StudentDao {
 
 
 
-	public StudentDto getSearchingName(String searchingName) {
-		StudentDto dto = null;
-		String sql = "select * from student_황희원 where name ='"+searchingName+"'";
+	public ArrayList<StudentDto> getSearchingName(String searchingName) {
+		ArrayList<StudentDto> dtos = new ArrayList<StudentDto>();
+		String sql = "select * from student_황희원 where name ='"+searchingName+"' order by syear , sclass, sno";
 		
 		try {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				String syear = rs.getString("syear");
 				String sclass=rs.getString("sclass");
 				String sno=rs.getString("sno");
@@ -118,7 +118,8 @@ public class StudentDao {
 				int kor=rs.getInt("kor");
 				int eng=rs.getInt("eng");
 				int mat=rs.getInt("mat");
-				dto = new StudentDto(syear, sclass, sno, name, kor, eng, mat);
+				StudentDto dto = new StudentDto(syear, sclass, sno, name, kor, eng, mat);
+				dtos.add(dto);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -126,14 +127,14 @@ public class StudentDao {
 		}finally {
 			DBConnection.closeDB(con, ps, rs);
 		}
-		return dto;
+		return dtos;
 	}
 
 
 
-	public StudentDto getSearchingSpecific(int searchingGrade, int searchingClass, int searchingNumber) {
+	public StudentDto getSearchingSpecific(String updateGrade, String updateClass, String updateNumber) {
 		StudentDto dto = null;
-		String sql ="select * from student_황희원 where syear='"+searchingGrade+"' and sclass='"+searchingClass+"' and sno ='"+searchingNumber+"'";
+		String sql ="select * from student_황희원 where syear='"+updateGrade+"' and sclass='"+updateClass+"' and sno ='"+updateNumber+"'";
 		
 		try {
 			con=DBConnection.getConnection();
@@ -178,8 +179,71 @@ public class StudentDao {
 		}else System.out.println("doesn't exist");
 		
 		System.out.println("-----------------------------------------------------------\r");
+	}
+	public void dtoprint(StudentDto dto) {
+		System.out.println("==========================name searching==========================");
+		System.out.println("grade   class   number   name   kor   eng   mat\r");
+		if(dto!=null) {
+
+			System.out.print(dto.getSyear()+"\t");
+			System.out.print(dto.getSclass()+"\t");
+			System.out.print(dto.getSno()+"\t");
+			System.out.print(dto.getName()+"\t");
+			System.out.print(dto.getKor()+"\t");
+			System.out.print(dto.getEng()+"\t");
+			System.out.print(dto.getMat()+"\r");
+			
+		}else 	System.out.println("doesn't exsist\r");
+		System.out.println("-----------------------------------------------------------\r");
+	}
+
+
+	public int checkStudent(String syear, String sclass, String sno) {
+		int checking=0;
+		String sql = "select count(*) from student_황희원 where syear = '"+syear+"' and sclass='"+sclass+"' and sno= '"+sno+"'";
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			
+			if(rs.next())checking=rs.getInt("count(*)");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Error: "+sql);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		return checking;
+	}
+
+
+
+	public int studentUpdate(StudentDto updateDto) {
+		int updateResult;
+		String sql ="";
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Error: "+sql);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
 		
 		
+		
+		
+		return 0;
 	}
 
 

@@ -48,11 +48,12 @@ select * from student_황희원 where syear='1' and sclass='1' and sno ='1';
 
 
 
+insert into member_황희원 (id,name,area,age) values ('303','이미자','서울',29);
+rollback;
 
 
 
-
-
+select count(*) from student_황희원 where syear = '1' and sclass='1' and sno= '1';
 
 
 

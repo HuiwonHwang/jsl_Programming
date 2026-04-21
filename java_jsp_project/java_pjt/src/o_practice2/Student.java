@@ -43,43 +43,21 @@ public class Student {
 					break;
 				case 3:
 					System.out.println("what grade");
-					int searchingGrade = sc.nextInt();
+					String searchingGrade = sc.next();
 					System.out.println("what class");
-					int searchingClass = sc.nextInt();
+					String searchingClass = sc.next();
 					System.out.println("what number");
-					int searchingNumber = sc.nextInt();
+					String searchingNumber = sc.next();
 					StudentDto dto2 =dao.getSearchingSpecific(searchingGrade,searchingClass,searchingNumber);
-					if(dto2!=null) {
-						System.out.println("==========================name searching==========================");
-						System.out.println("grade   class   number   name   kor   eng   mat\r");
-						System.out.print(dto2.getSyear()+"\t");
-						System.out.print(dto2.getSclass()+"\t");
-						System.out.print(dto2.getSno()+"\t");
-						System.out.print(dto2.getName()+"\t");
-						System.out.print(dto2.getKor()+"\t");
-						System.out.print(dto2.getEng()+"\t");
-						System.out.print(dto2.getMat()+"\r");
-						System.out.println("-----------------------------------------------------------\r");
-						}else 	System.out.println("doesn't exist\r");
+					dao.dtoprint(dto2);
 					 break;
 				case 4:
 					System.out.println("who you looking for\r");
 					String searchingName =sc.next();
-					StudentDto dto =dao.getSearchingName(searchingName);
-					if(dto!=null) {
-						System.out.println("==========================name searching==========================");
-						System.out.println("grade   class   number   name   kor   eng   mat");
-						System.out.print(dto.getSyear()+"\t");
-						System.out.print(dto.getSclass()+"\t");
-						System.out.print(dto.getSno()+"\t");
-						System.out.print(dto.getName()+"\t");
-						System.out.print(dto.getKor()+"\t");
-						System.out.print(dto.getEng()+"\t");
-						System.out.print(dto.getMat()+"\r");
-						System.out.println("-----------------------------------------------------------\r");
-					}else {
-						System.out.println(searchingName+"doesn't exsist\r");
-					}					
+					ArrayList<StudentDto> dtos3 =dao.getSearchingName(searchingName);
+					dao.dtosPrint(dtos3);			
+					break;
+				case 0:
 					break;
 				default:
 					System.out.println("choose in 0~4\r");	
@@ -94,29 +72,66 @@ public class Student {
 				sclass=sc.next();
 				System.out.println("enter number");
 				sno=sc.next();
-				System.out.println("enter name");
-				name=sc.next(); 
-				System.out.println("enter kor score");
-				kor=sc.nextInt();
-				System.out.println("enter eng score");
-				eng=sc.nextInt();
-				System.out.println("enter mat score");
-				mat=sc.nextInt();
-				StudentDto dto = new StudentDto(syear, sclass, sno, name, kor, eng, mat);
 				
-				int result = dao.studentSave(dto);
-				if(result>0) {
-					System.out.println(result+"행이 삽입되었습니다.");
-				}else System.out.println("insert failed");
+				int checking = dao.checkStudent(syear,sclass,sno);
+				if(checking ==0) {
+					System.out.println("enter name");
+					name=sc.next(); 
+					System.out.println("enter kor score");
+					kor=sc.nextInt();
+					System.out.println("enter eng score");
+					eng=sc.nextInt();
+					System.out.println("enter mat score");
+					mat=sc.nextInt();
+					StudentDto dto = new StudentDto(syear, sclass, sno, name, kor, eng, mat);
+					
+					int result = dao.studentSave(dto);
+					if(result>0) {
+						System.out.println(result+"행이 삽입되었습니다.");
+					}else System.out.println("insert failed");
+				}else {
+					System.out.println("already exist!");
+				}
+				
 				break;
 			case 3:
+				System.out.println("what grade");
+				String updateGrade = sc.next();
+				System.out.println("what class");
+				String updateClass = sc.next();
+				System.out.println("what number");
+				String updateNumber = sc.next();
+				StudentDto dto4 =dao.getSearchingSpecific(updateGrade,updateClass,updateNumber);
+				dao.dtoprint(dto4);
+				
+				if(dto4!=null) {
+					System.out.println("is he correct? do you want modifying  Y/N");
+					String yn = sc.next();
+					if(yn.equalsIgnoreCase("y")) {
+						System.out.println("enter name");
+						name=sc.next(); 
+						System.out.println("enter kor score");
+						kor=sc.nextInt();
+						System.out.println("enter eng score");
+						eng=sc.nextInt();
+						System.out.println("enter mat score");
+						mat=sc.nextInt();
+						
+						StudentDto updateDto = new StudentDto(updateGrade, updateClass, updateNumber, name, kor, eng, mat);
+						int result = dao.studentUpdate(updateDto);
+					}else {
+						System.out.println("close modifying\r");
+					}
+				}
+				
 				break;
 			case 4:
+				break;
+			case 0:
 				break;
 			default :
 				System.out.println("choose in 0 ~ 4");
 			}
-			
 			
 		}while(gubun!=0);
 		
