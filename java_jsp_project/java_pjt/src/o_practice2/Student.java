@@ -107,7 +107,7 @@ public class Student {
 				if(dto4!=null) {
 					System.out.println("is he correct? do you want modifying  Y/N");
 					String yn = sc.next();
-					if(yn.equalsIgnoreCase("y")) {
+					if(yn.equalsIgnoreCase("y")||yn.equals("ㅛ")) {
 						System.out.println("enter name");
 						name=sc.next(); 
 						System.out.println("enter kor score");
@@ -119,18 +119,38 @@ public class Student {
 						
 						StudentDto updateDto = new StudentDto(updateGrade, updateClass, updateNumber, name, kor, eng, mat);
 						int result = dao.studentUpdate(updateDto);
+						if(result>0) System.out.println("updated "+result+"line(s)\r");
+						else System.out.println("update failed\r");
 					}else {
 						System.out.println("close modifying\r");
 					}
 				}
-				
 				break;
 			case 4:
+				System.out.println("what grade");
+				String deleteGrade = sc.next();
+				System.out.println("what class");
+				String deleteClass = sc.next();
+				System.out.println("what number");
+				String deleteNumber = sc.next();
+				StudentDto dto5 =dao.getSearchingSpecific(deleteGrade,deleteClass,deleteNumber);
+				dao.dtoprint(dto5);
+				if(dto5!=null) {
+					System.out.println("is he correct? do you want delete?  Y/N");
+					String yn = sc.next();
+					if(yn.equalsIgnoreCase("y")||yn.equals("ㅛ")) {
+						int result = dao.studentDelete(deleteGrade,deleteClass,deleteNumber);
+						if(result>0) System.out.println("delete "+result+" line(s)\r");
+						else System.out.println("delete failed\r");
+					}else {
+						System.out.println("close modifying\r");
+					}
+				}
 				break;
 			case 0:
 				break;
 			default :
-				System.out.println("choose in 0 ~ 4");
+				System.out.println("choose in 0 ~ 4\r");
 			}
 			
 		}while(gubun!=0);

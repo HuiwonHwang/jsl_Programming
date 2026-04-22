@@ -221,18 +221,33 @@ public class StudentDao {
 
 
 
-	public int studentUpdate(StudentDto updateDto) {
-		int updateResult;
-		String sql ="";
+	public int studentUpdate(StudentDto dto) {
+		int updateResult=0;
+		String sql ="update student_황희원 set name='"+dto.getName()+"', kor="+dto.getKor()+",eng="+dto.getEng()+",mat="+dto.getMat()+" where syear ='"+dto.getSyear()+"' and \r\n"
+				+ "sclass = '"+dto.getSclass()+"' and sno='"+dto.getSno()+"'";
 		
 		try {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(sql);
-			rs=ps.executeQuery();
-			
-			if(rs.next()) {
-				
-			}
+			updateResult=ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Error: "+sql);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		return updateResult;
+	}
+
+
+
+	public int studentDelete(String deleteGrade, String deleteClass, String deleteNumber) {
+		int result =0;
+		String sql = "delete from student_황희원 where syear = '"+deleteGrade+"' and sclass = '"+deleteClass+"' and sno='"+deleteNumber+"'";
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(sql);
+			result=ps.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Error: "+sql);
@@ -240,10 +255,7 @@ public class StudentDao {
 			DBConnection.closeDB(con, ps, rs);
 		}
 		
-		
-		
-		
-		return 0;
+		return result;
 	}
 
 

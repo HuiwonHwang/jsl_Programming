@@ -56,8 +56,9 @@ rollback;
 select count(*) from student_황희원 where syear = '1' and sclass='1' and sno= '1';
 
 
+update student_황희원 set name='홍길동' where syear ='1' and 
+sclass = '1' and sno='1';
 
-
-
+delete from student_황희원 where syear = '1' and sclass = '1' and sno='1';
 
 
