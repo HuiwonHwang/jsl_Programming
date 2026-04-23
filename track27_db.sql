@@ -62,3 +62,17 @@ sclass = '1' and sno='1';
 delete from student_황희원 where syear = '1' and sclass = '1' and sno='1';
 
 
+create table animal_황희원 (
+no varchar2(3) not null primary key,
+name varchar2(30) not null,
+kind varchar2(1) not null ,
+weight number(4) not null 
+);
+
+--카인드 해상동물 육상동물 해상O 육상L  kind 보여줄때는 해상 육상으로 보여준다
+
+select count(*) from animal_황희원 where no='201';
+
+insert into animal_황희원 (no,name,kind,weight) values ('1','1','1',1);
+rollback;
+update animal_황희원 set name='연개길동',kind='o',weight=68 where no = '101';
