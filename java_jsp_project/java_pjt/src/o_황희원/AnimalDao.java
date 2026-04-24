@@ -13,7 +13,7 @@ public class AnimalDao {
 	//전체조회
 	public ArrayList<AnimalDto> getAnimalList() {
 		ArrayList<AnimalDto> dtos = new ArrayList<>();
-		String sql= "select no,name,kind,weight from animal_황희원";
+		String sql= "select no,name,kind,weight from animal_황희원 order by no";
 		
 		try {
 			con=DBConnection.getConnection();
@@ -118,7 +118,7 @@ public class AnimalDao {
 	//이름검색
 	public AnimalDto searchingByName(String nameForSearching) {
 		AnimalDto dto=null;
-		String sql="select no,name,kind,weight from animal_황희원 where name='"+nameForSearching+"'";
+		String sql="select no,name,kind,weight from animal_황희원 where name like'%"+nameForSearching+"%'";
 		
 		try {
 			con=DBConnection.getConnection();

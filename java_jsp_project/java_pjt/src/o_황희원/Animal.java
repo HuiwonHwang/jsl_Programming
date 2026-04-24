@@ -74,16 +74,18 @@ public class Animal {
 					dao.printDto(dtoForNumberSearching);
 					System.out.println("이 동물이 맞나요?  Y/N");
 					String answerForUpdate=sc.next();
-					if(answerForUpdate.equalsIgnoreCase("y")||answerForUpdate.equalsIgnoreCase("n")) {
+					if(answerForUpdate.equalsIgnoreCase("y")||answerForUpdate.equalsIgnoreCase("ㅛ")) {
 						System.out.println("변경할 동물의 이름을 입력해주세요");
 						String nameForUpdate=sc.next();
 						System.out.println("변경할 동물의 분류를 입력해주세요    O: 해상동물 L:육상동물");
 						String kindForUpdate=sc.next();
-						System.out.println("변경할 동물의 무게를 입력해주세요");
-						int weightForUpdate=sc.nextInt();
-						int resultForUpdate = dao.AnimalUpadte(noForUpdate,nameForUpdate,kindForUpdate,weightForUpdate);
-						if(resultForUpdate>0) System.out.println(noForUpdate+" 행이 수정되었습니다.");
-						else System.out.println("수정 실패");
+						if(kindForUpdate.equalsIgnoreCase("L")||kindForUpdate.equalsIgnoreCase("O")) {
+							System.out.println("변경할 동물의 무게를 입력해주세요");
+							int weightForUpdate=sc.nextInt();
+							int resultForUpdate = dao.AnimalUpadte(noForUpdate,nameForUpdate,kindForUpdate,weightForUpdate);
+							if(resultForUpdate>0) System.out.println(resultForUpdate+" 행이 수정되었습니다.");
+							else System.out.println("수정 실패");
+						}else System.out.println("Enter L or O");;
 					}else System.out.println("Enter Y or N");
 				}
 				else System.out.println("존재하지 않습니다.");
@@ -96,7 +98,7 @@ public class Animal {
 					dao.printDto(dtoForNumberSearching);
 					System.out.println("이 동물이 맞나요?  Y/N");
 					String answerForDelete=sc.next();
-					if(answerForDelete.equalsIgnoreCase("y")||answerForDelete.equalsIgnoreCase("n")) {
+					if(answerForDelete.equalsIgnoreCase("y")||answerForDelete.equalsIgnoreCase("ㅛ")) {
 						int resultForDelete=dao.AnimalDelete(noForDelete);
 						if(resultForDelete>0)System.out.println(resultForDelete+" 행이 삭제되었습니다.");
 						else System.out.println("삭제 실패");
