@@ -76,3 +76,22 @@ select count(*) from animal_황희원 where no='201';
 insert into animal_황희원 (no,name,kind,weight) values ('1','1','1',1);
 rollback;
 update animal_황희원 set name='연개길동',kind='o',weight=68 where no = '101';
+
+create table snack_황희원(
+pcode varchar2(4) not null primary key,    --제품코드 p001 p002
+pname varchar2(30) not null,   --새우깡
+company varchar2(2) not null,    --제조사코드,10,20
+price number(5) not null,
+makedate date not null,  --제조일자
+foreign key(company) REFERENCES snack_company(company_code)
+);
+
+
+insert into snack_황희원(pcode,pname,company, price,makedate) 
+values ('p004','초코파이','50',1450,'2026-04-20');
+
+select s.pcode,s.pname,s.company,c.company_name,s.price,to_char(s.makedate,'yyyy-MM-dd') as makedate 
+from snack_황희원 s,snack_company c 
+where s.company = c.company_code;
+drop TABLE snack_황희원;
+select s.pcode,s.pname,s.company,c.company_name,s.price,to_char(s.makedate,'yyyy-MM-dd') as makedate from snack_황희원 s,snack_company c where s.company = c.company_code;
