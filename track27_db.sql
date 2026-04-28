@@ -86,12 +86,17 @@ makedate date not null,  --제조일자
 foreign key(company) REFERENCES snack_company(company_code)
 );
 
-
+select count(*) from snack_황희원 where pcode='p001';
 insert into snack_황희원(pcode,pname,company, price,makedate) 
 values ('p004','초코파이','50',1450,'2026-04-20');
-
+select * from snack_company;
 select s.pcode,s.pname,s.company,c.company_name,s.price,to_char(s.makedate,'yyyy-MM-dd') as makedate 
 from snack_황희원 s,snack_company c 
 where s.company = c.company_code;
 drop TABLE snack_황희원;
 select s.pcode,s.pname,s.company,c.company_name,s.price,to_char(s.makedate,'yyyy-MM-dd') as makedate from snack_황희원 s,snack_company c where s.company = c.company_code;
+insert into snack_황희원(pcode,pname,company, price,makedate) 
+				values ('p006','고구마깡','40',1500,'2026-04-20');
+delete from snack_황희원 where pcode='p001';
+                
+update snack_황희원 set pname='',company='',price where pcode='';
