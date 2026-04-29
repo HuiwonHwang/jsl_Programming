@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<title>사내 게시판</title>
+	</head>
+	<body>
+	<fieldset>
+		<legend>사내 게시판</legend>
+		<table border="0" width="80%" >
+		<colgroup>
+			<col width="10%" />
+			<col width="40%" />
+			<col width="10%" />
+			<col width="40%" />
+		<tr>
+			<td>구분</td>
+			<td colspan="3">
+			<select>
+					<option>공지사항</option>
+					<option>참여마당</option>
+					<option>건의사항</option>
+		</tr>
+		<tr>
+			<td>제목</td>
+			<td colspan="3"><input type="text" size="63"></td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td colspan="3"><textarea cols="60" rows="15" ></textarea> </td>
+		</tr>
+		<tr>
+			<td>첨부</td>
+			<td colspan="3"><input type="file"/></td>
+		</tr>
+		<tr>
+			<td>중요도</td>
+			<td><input type="radio" name="imfortant"/>보통
+				<input type="radio" name="imfortant"/>중요
+				<input type="radio" name="imfortant"/>매우 중요
+			</td>
+			<td>열람 부서</td>
+			<td><input type="checkbox" name="chk1"/>총무
+				<input type="checkbox" name="chk2"/>인사
+				<input type="checkbox" name="chk3"/>재무
+				<input type="checkbox" name="chk4"/>영업
+			</td>
+		</tr>
+		<tr>
+			<td>작성자</td>
+			<td><input type="text" size="5" maxlength="5"/></td>
+			<td>작성일</td>
+			<td><input type="text" size="10" maxlength="10"/></td>
+		</tr>
+		<tr>
+			<th colspan="4"><input type="button" value="등록"/></td>
+			
+		</tr>
+		
+		
+		
+	
+		</table>
+	</fieldset>
+	</body>
+</html>
