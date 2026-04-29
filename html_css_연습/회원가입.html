@@ -3,9 +3,38 @@
 		<title>황희원 회원가입</title>
 		<script>
 			function goCheck(){
+				var hoddy=mem.hoddy_food.value;
+				alert(hoddy);
 				var id  = mem.t_id.value;
+				var password = mem.t_password.value;
+				if(id==""){
+					alert("id를 입력하세요");
+					mem.t_id.focus();
+					return;
+				} 
+				if(password==""){
+					alert("비밀번호를 입력하세요");
+					mem.t_password.focus();
+					return;
+				}
+				var password_confirm= mem.t_password_confirm.value;
+				if(password_confirm==""){
+					alert("비밀번호 확인을 입력하세요");
+					mem.t_password_confirm.focus();
+					return;
+				}
+				if(password!=password_confirm){
+					alert("비밀번호가 일치하지 않습니다.");
+					mem.t_password_confirm.focus();
+					return;
+				}
+				var name= mem.t_name.value;
+				if(name==""){
+					alert("성명을 입력하세요");
+					mem.t_name.focus();
+					return;
+				}
 				
-				alert(id);
 			}
 			
 		</script>
@@ -28,16 +57,17 @@
 				</tr>
 				<tr>
 					<td>비밀번호 확인</td>
-					<td><input type ="password" size = "20" maxlength = "12"/></td>
+					<td><input type ="password" name="t_password_confirm" size = "20" maxlength = "12"/></td>
 				</tr>
 				<tr>
 					<td>성명</td>
-					<td><input type = "text" size="8" maxlength="5"/></td>
+					<td><input type = "text" name="t_name" size="8" maxlength="5"/></td>
 				</tr>
 				<tr>
 					<td>지역</td>
-					<td><select>
-							<option value ="서울">서울</option>
+					<td><select name="t_area">
+							<option value="">선택</option>
+							<option value="서울">서울</option>
 							<option value="대전">대전</option>
 							<option value="대구">대구</option>
 							<option value="부산">부산</option>
@@ -54,14 +84,16 @@
 				</tr>
 				<tr>
 					<td>메일 수신여부</td>
-					<td><input type="radio" value="Y" name ="receive"/>예
-					<input type="radio" value="N" name="receive"/>아니요 </td>
+					<td><input type="radio" value="Y" name ="t_receive"/>예
+					<input type="radio" value="N" name="t_receive"/>아니요 </td>
 				</tr>
 				<tr>
 					<td>관심분야</td>
-					<td><input type="checkbox" value="음식" name="chk1"/>음식
-					<input type="checkbox" value="게임" name="chk2"/>게임
-					<input type="checkbox" value="운동" name="chk3"/>운동</td>
+					<td>
+					<input type="checkbox" value="음식" name="hoddy_food"/>음식
+					<input type="checkbox" value="게임" name="hoddy_game"/>게임
+					<input type="checkbox" value="운동" name="hoddy_excise"/>운동
+					</td>
 				</tr>
 				<tr>
 					<th colspan="2"><input type="button" onclick="goCheck()" value="회원가입"/>
