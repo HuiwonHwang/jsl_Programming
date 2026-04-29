@@ -10,6 +10,7 @@ public class Snack {
 		Scanner sc = new Scanner(System.in);
 		SnackDao dao= new SnackDao();
 		
+		
 		String gubun = "";
 		String searchingGubun="";
 		String searching="";
@@ -41,27 +42,39 @@ public class Snack {
 				dao.printDtos(dtosSearching);
 				break;
 			case "2":
-				System.out.println("삽입할 과자의 제품 코드를 입력해주세요  ex)p001");
-				pcode=sc.next();
-				if(pcode.substring(0, 1).equalsIgnoreCase("p")) {
-					int duplicateCheck=dao.duplicateCheck(pcode);
-					if(duplicateCheck!=1) {
-						System.out.println("삽입할 과자의 제품명을 입력해주세요");
-						pname=sc.next();
-						System.out.println("삽입할 과자의 제조사 코드를 입력해주세요");
-						company=sc.next();
-						System.out.println("삽입할 과자의 가격을 입력해주세요");
-						price=sc.nextInt();
-						int resultInsert = dao.insert( pcode, pname,  company,  price);
-						if(resultInsert!=0)System.out.println(resultInsert+" 행이 삽입되었습니다.");
-						else System.out.println("삽입 실패");
-					}else System.out.println("중복된 pcode입니다");
-					
-				}else {
-					System.out.println("잘못된 pcode입니다 p로 시작해야합니다.");
+				
+				String maxPcode=dao.getMaxCode();
+				
+				
+				System.out.println("삽입될 제품코드는 "+maxPcode+"입니다.  Y/N");
+				if(sc.next().equalsIgnoreCase("Y")) {
+//					System.out.println("삽입할 과자의 제품 코드를 입력해주세요  ex)p001");
+//					pcode=sc.next();
+//					if(pcode.substring(0, 1).equalsIgnoreCase("p")) {
+//						int duplicateCheck=dao.duplicateCheck(pcode);
+//						if(duplicateCheck!=1) {
+							System.out.println("삽입할 과자의 제품명을 입력해주세요");
+							pname=sc.next();
+							ArrayList<CompanyDto> comDtos = dao.getCompanyList();
+							dao.companyPrint(comDtos);
+							boolean going=false;
+							do {
+								System.out.println("삽입할 과자의 제조사 코드를 입력해주세요");
+								company=sc.next();	
+								for( CompanyDto cdto: comDtos) {
+									if(cdto.getCompany_code().equals(company))going=true;
+								}
+							}while(!going);
+							System.out.println("삽입할 과자의 가격을 입력해주세요");
+							price=sc.nextInt();
+							System.out.println("삽입할 과자의 제조날짜를 입력해주세요");
+							makedate=sc.next();
+							int resultInsert = dao.insert( maxPcode, pname,  company,  price,makedate);
+							if(resultInsert!=0)System.out.println(resultInsert+" 행이 삽입되었습니다.");
+							else System.out.println("삽입 실패");
+//						}else System.out.println("중복된 pcode입니다");
+//					}else System.out.println("잘못된 pcode입니다 p로 시작해야합니다.");
 				}
-				
-				
 				break;
 			case "3":
 				dtosSearching = dao.getSearching("1",searching);
@@ -77,19 +90,23 @@ public class Snack {
 					company=sc.next();
 					System.out.println("변경할 가격를 입력해주세요");
 					price=sc.nextInt();
-					int resultUpdate = dao.update(update,pname,company,price);
-					if(resultUpdate>0) System.out.println(resultUpdate +" 행이 수정되었습니다.");
-					else System.out.println("수정 실패");
-				}
+					System.out.println("변경할 제조사를 생성일자로 입력해주세요");
+					makedate=sc.next();
+					int resultUpdate = dao.update(update,pname,company,price,makedate);
+					if(resultUpdate>0) System.out.println(resultUpdate +" 행이 수정되었습니다.\r");
+					else System.out.println("수정 실패\r");
+				} else System.out.println("제품코드를 정확히 입력해주세요\r");
 				break;
 			case "4":
 				dtosSearching = dao.getSearching("1",searching);
 				dao.printDtos(dtosSearching);
 				System.out.println("삭제할 제품코드를 입력해주세요");
 				String delete=sc.next();
-				int deleteResult=dao.delete(delete);
-				if(deleteResult>0)System.out.println(deleteResult+" 행이 삭제되었습니다.");
-				else System.out.println("삭제 실패");
+				if(delete.substring(0, 1).equalsIgnoreCase("p")) {
+					int deleteResult=dao.delete(delete);
+					if(deleteResult>0)System.out.println(deleteResult+" 행이 삭제되었습니다.");
+					else System.out.println("삭제 실패");
+				}else System.out.println("pcode를 정확히 입력해주세요");
 				break;
 			case "0":
 				break;

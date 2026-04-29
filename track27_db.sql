@@ -100,3 +100,4 @@ insert into snack_황희원(pcode,pname,company, price,makedate)
 delete from snack_황희원 where pcode='p001';
                 
 update snack_황희원 set pname='',company='',price where pcode='';
+select max(pcode) from snack_황희원;

@@ -127,10 +127,10 @@ public class SnackDao {
 		}else System.out.println("정보 없음");
 	}
 
-	public int insert(String pcode2, String pname2, String company2, int price2) {
+	public int insert(String pcode2, String pname2, String company2, int price2, String makedate2) {
 		int insertResult =0;
 		String sql="insert into snack_황희원 (pcode,pname,company, price,makedate) "
-				+ "values ('"+pcode2+"','"+pname2+"','"+company2+"',"+price2+",'2026-04-20')";
+				+ "values ('"+pcode2+"','"+pname2+"','"+company2+"',"+price2+",'"+makedate2+"')";
 		try {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(sql);
@@ -193,13 +193,13 @@ public class SnackDao {
 				System.out.print(dto.getCompany_name()+"\t");
 				System.out.print(dto.getCompany_code()+"\r");
 			}
-			System.out.println("--------------------------------------------------");	
+			System.out.println("--------------------------------------------------\r");	
 		}else System.out.println("정보 없음");
 	}
 
-	public int update(String update, String pname2, String company2, int price2) {
+	public int update(String update, String pname2, String company2, int price2, String makedate2) {
 		int updateResult=0;
-		String sql="update snack_황희원 set pname='"+pname2+"',company='"+company2+"',price="+price2+" where pcode='"+update+"'";
+		String sql="update snack_황희원 set pname='"+pname2+"',company='"+company2+"',price="+price2+",'"+makedate2+"' where pcode='"+update+"'";
 		try {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(sql);
@@ -227,6 +227,30 @@ public class SnackDao {
 			DBConnection.closeDB(con, ps, rs);
 		}
 		return deleteResult;
+	}
+
+	public String getMaxCode() {
+		String max="";
+		String sql="select max(pcode) from snack_황희원";
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				max=rs.getString("max(pcode)");
+				if(max==null) max="P000";
+				int m= Integer.parseInt(max.substring(1))+1 ;
+				DecimalFormat df = new DecimalFormat("P000");
+				max=df.format(m);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Error: "+sql);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		return max;
 	}
 	
 
