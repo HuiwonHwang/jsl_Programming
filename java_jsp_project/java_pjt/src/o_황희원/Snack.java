@@ -25,7 +25,7 @@ public class Snack {
 			gubun=sc.next();			
 			switch(gubun) {
 			case "1":
-				System.out.println("1. 전체 조회 2. 제품명 조회 3. 제조사 검색 0. 나가기");
+				System.out.println("1. 전체 조회 2. 제품명 조회 3. 제조사 검색 4. 제품코드 검색 0. 나가기");
 				searchingGubun=sc.next();
 				if(searchingGubun.equals("2")) {
 					System.out.println("조회를 원하는 제품명을 입력하시오");
@@ -35,7 +35,9 @@ public class Snack {
 					dao.companyPrint(comDtos);
 					System.out.println("조회를 원하는 제조사의 코드를 입력하시오");
 					searching=sc.next();
-					
+				} else if(searchingGubun.equals("4")) {
+					System.out.println("조회를 원하는 제품코드를 입력하시오");
+					searching=sc.next();
 				}
 				ArrayList<SnackDto> dtosSearching = new ArrayList<>();
 				dtosSearching = dao.getSearching(searchingGubun,searching);
@@ -82,17 +84,9 @@ public class Snack {
 				System.out.println("수정할 제품코드를 입력해주세요");
 				String update=sc.next();
 				if(update.substring(0, 1).equalsIgnoreCase("p")) {
-					System.out.println("변경할 제품명를 입력해주세요");
-					pname=sc.next();
-					ArrayList<CompanyDto> comDtos = dao.getCompanyList();
-					dao.companyPrint(comDtos);
-					System.out.println("변경할 제조사를 번호로 입력해주세요");
-					company=sc.next();
-					System.out.println("변경할 가격를 입력해주세요");
-					price=sc.nextInt();
-					System.out.println("변경할 제조사를 생성일자로 입력해주세요");
-					makedate=sc.next();
-					int resultUpdate = dao.update(update,pname,company,price,makedate);
+					System.out.println("수정할 항목을 선택하세요 f. 전체 수정 n. 제품명 c. 제조사 p. 가격 m. 제조날짜 0. 되돌아가기");
+					String updateSelect =sc.next();
+					int resultUpdate = dao.update(update.toUpperCase(),updateSelect.toUpperCase());
 					if(resultUpdate>0) System.out.println(resultUpdate +" 행이 수정되었습니다.\r");
 					else System.out.println("수정 실패\r");
 				} else System.out.println("제품코드를 정확히 입력해주세요\r");

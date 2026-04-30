@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class SnackDao {
 	Connection con = null;
@@ -13,7 +14,7 @@ public class SnackDao {
 	String pcode,pname,company,company_name,makedate;
 	int price;
 	DecimalFormat df = new DecimalFormat();
-	
+	Scanner sc = new Scanner(System.in);
 	
 	
 	public ArrayList<SnackDto> getSearching(String searchingGubun, String searching) {
@@ -96,25 +97,49 @@ public class SnackDao {
 				DBConnection.closeDB(con, ps, rs);
 			}
 			break;
+		case "4":
+			sql = "select s.pcode,s.pname,s.company,c.company_name,s.price,to_char(s.makedate,'yyyy-MM-dd') as makedate from snack_황희원 s,snack_company c "
+					+ "	 where s.company = c.company_code and s.pcode = '"+searching.toUpperCase()+"'";
+			try {
+				con=DBConnection.getConnection();
+				ps=con.prepareStatement(sql);
+				rs=ps.executeQuery();
+				
+				while(rs.next()) {
+					pcode=rs.getString("pcode");
+					pname=rs.getString("pname");
+					company=rs.getString("company");
+					company_name=rs.getString("company_name");
+					makedate=rs.getString("makedate");
+					price=rs.getInt("price");
+					SnackDto dto=new SnackDto(pcode, pname, company, company_name, makedate, price);
+					dtos.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("Error: "+sql);
+			}finally {
+				DBConnection.closeDB(con, ps, rs);
+			}
+			break;
 		case "0":
 			break;
 		default:
 			System.out.println("0~3 중 골라주세요");
 			break;
 		}
-		
 		return dtos;
 	}
 
 	public void printDtos(ArrayList<SnackDto> dtos) {
 		if(dtos.size()!=0) {
 			System.out.println("====================조회====================");
-			System.out.println("제품코드\t\t제품명\t\t제조사[제조사코드]\t\t가격\t\t제조일");
+			System.out.println("제품코드\t제품명\t제조사[제조사코드]\t가격\t제조일");
 			for(SnackDto dto : dtos) {
-				System.out.print(dto.getPcode()+"\t\t");
-				System.out.print(dto.getPname()+"\t\t");
-				System.out.print(dto.getCompany_name()+"["+dto.getCompany()+"]\t\t");
-				System.out.print(df.format(dto.getPrice()) +"\t\t");
+				System.out.print(dto.getPcode()+"\t");
+				System.out.print(dto.getPname()+"\t");
+				System.out.print(dto.getCompany_name()+"["+dto.getCompany()+"]\t");
+				System.out.print(df.format(dto.getPrice()) +"\t");
 				System.out.println(dto.getMakedate());
 			}
 			
@@ -146,7 +171,7 @@ public class SnackDao {
 
 	public int duplicateCheck(String pcode2) {
 		int duplicateCheck=0;
-		String sql="select count(*) from snack_황희원 where pcode='"+pcode2+"'";
+		String sql="select count(*) from snack_황희원 where pcode='"+pcode2.toUpperCase()+"'";
 		try {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(sql);
@@ -197,18 +222,106 @@ public class SnackDao {
 		}else System.out.println("정보 없음");
 	}
 
-	public int update(String update, String pname2, String company2, int price2, String makedate2) {
+	public int update(String update, String updateSelect) {
 		int updateResult=0;
-		String sql="update snack_황희원 set pname='"+pname2+"',company='"+company2+"',price="+price2+",'"+makedate2+"' where pcode='"+update+"'";
-		try {
-			con=DBConnection.getConnection();
-			ps=con.prepareStatement(sql);
-			updateResult=ps.executeUpdate();
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("Error: "+sql);
-		}finally {
-			DBConnection.closeDB(con, ps, rs);
+		String pname2="";
+		String company2="";
+		int price2=0;
+		String makedate2="";
+		ArrayList<SnackDto> dtos = new ArrayList<>();
+		dtos = getSearching("4",update);
+		switch(updateSelect) {
+		case "F":
+			System.out.println(dtos.get(0).getPname()+" -->변경할 제품명를 입력해주세요");
+			pname2=sc.next();
+			ArrayList<CompanyDto> comDtos = getCompanyList();
+			companyPrint(comDtos);
+			System.out.println(dtos.get(0).getCompany()+" -->변경할 제조사를 번호로 입력해주세요");
+			company2=sc.next();
+			System.out.println(dtos.get(0).getPrice()+" -->변경할 가격를 입력해주세요");
+			price2=sc.nextInt();
+			System.out.println(dtos.get(0).getMakedate()+" -->변경할 생산일을 입력해주세요");
+			makedate2=sc.next();
+			String sql="update snack_황희원 set pname='"+pname2+"',company='"+company2+"',price="+price2+",'"+makedate2+"' where pcode='"+update+"'";
+			try {
+				con=DBConnection.getConnection();
+				ps=con.prepareStatement(sql);
+				updateResult=ps.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("Error: "+sql);
+			}finally {
+				DBConnection.closeDB(con, ps, rs);
+			}
+			break;
+		case "N":
+			System.out.println(dtos.get(0).getPname()+" -->변경할 제품명를 입력해주세요");
+			pname2=sc.next();
+			sql="update snack_황희원 set pname='"+pname2+"' where pcode='"+update+"'";
+			try {
+				con=DBConnection.getConnection();
+				ps=con.prepareStatement(sql);
+				updateResult=ps.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("Error: "+sql);
+			}finally {
+				DBConnection.closeDB(con, ps, rs);
+			}
+			break;
+		case "C":
+			ArrayList<CompanyDto> comDtos1 = getCompanyList();
+			companyPrint(comDtos1);
+			System.out.println(dtos.get(0).getCompany()+" -->변경할 제조사를 번호로 입력해주세요");
+			company2=sc.next();
+			sql="update snack_황희원 set company='"+company2+"' where pcode='"+update+"'";
+			try {
+				con=DBConnection.getConnection();
+				ps=con.prepareStatement(sql);
+				updateResult=ps.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("Error: "+sql);
+			}finally {
+				DBConnection.closeDB(con, ps, rs);
+			}
+			break;
+		case "P":
+			System.out.println(dtos.get(0).getPrice()+" -->변경할 가격를 입력해주세요");
+			price2=sc.nextInt();
+		
+			sql="update snack_황희원 set price="+price2+" where pcode='"+update+"'";
+			try {
+				con=DBConnection.getConnection();
+				ps=con.prepareStatement(sql);
+				updateResult=ps.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("Error: "+sql);
+			}finally {
+				DBConnection.closeDB(con, ps, rs);
+			}
+			break;
+		case "M":
+			System.out.println(dtos.get(0).getMakedate()+" -->변경할 생산일을 입력해주세요");
+			makedate2=sc.next();
+			sql="update snack_황희원 set '"+makedate2+"' where pcode='"+update+"'";
+			try {
+				con=DBConnection.getConnection();
+				ps=con.prepareStatement(sql);
+				updateResult=ps.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("Error: "+sql);
+			}finally {
+				DBConnection.closeDB(con, ps, rs);
+			}
+			break;
+		case "0":
+			break;
+		default:
+			System.out.println("수정할 항목을 정확히 입력해주세요");
+			break;
 		}
 		return updateResult;
 	}
