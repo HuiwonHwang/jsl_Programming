@@ -92,15 +92,21 @@ public class Snack {
 				} else System.out.println("제품코드를 정확히 입력해주세요\r");
 				break;
 			case "4":
-				dtosSearching = dao.getSearching("1",searching);
-				dao.printDtos(dtosSearching);
+//				dtosSearching = dao.getSearching("1",searching);
+//				dao.printDtos(dtosSearching);
 				System.out.println("삭제할 제품코드를 입력해주세요");
 				String delete=sc.next();
-				if(delete.substring(0, 1).equalsIgnoreCase("p")) {
-					int deleteResult=dao.delete(delete);
-					if(deleteResult>0)System.out.println(deleteResult+" 행이 삭제되었습니다.");
-					else System.out.println("삭제 실패");
-				}else System.out.println("pcode를 정확히 입력해주세요");
+				dtosSearching = dao.getSearching("4",delete);
+				dao.printDtos(dtosSearching);
+				if(dtosSearching.size()!=0) {
+					System.out.println("삭제 하시겠습니까?  Y/N");
+					String yn = sc.next();
+					if(yn.equalsIgnoreCase("Y")) {
+						int deleteResult=dao.delete(delete);
+						if(deleteResult>0)System.out.println(deleteResult+" 행이 삭제되었습니다.");
+						else System.out.println("삭제 실패");
+					}
+				}
 				break;
 			case "0":
 				break;
