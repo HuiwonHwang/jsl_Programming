@@ -25,7 +25,7 @@
 </head>
 <body>
 	<form action="" name = mem>
-		<input type="text" name="t_id" value="">
+		<input type="hidden" name="t_id" >
 	</form>
 	<h2>황희원 회원관리</h2>
 	<p>총 회원수: <%=dtos.size() %>명</p>

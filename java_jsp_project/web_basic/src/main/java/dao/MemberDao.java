@@ -76,7 +76,6 @@ public class MemberDao {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
-			
 			if(rs.next()) {
 				name=rs.getString("name");
 			}
@@ -86,9 +85,6 @@ public class MemberDao {
 		} finally {
 			DBConnection.closeDB(con, ps, rs);
 		}
-		
-		
-		
 		return name;
 	}
 
@@ -96,20 +92,16 @@ public class MemberDao {
 	public int memberSave(MemberDto dto) {
 		int result =0;
 		String sql ="insert into member_황희원(id, name, area, age) values('"+dto.getId()+"','"+dto.getName()+"','"+dto.getArea()+"',"+dto.getAge() +")";
-		
 		try {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(sql);
 			result=ps.executeUpdate();
-			
-			
 		}catch(Exception e) {
 			System.out.println("error: "+sql);
 			e.printStackTrace();
 		}finally {
 			DBConnection.closeDB(con, ps, rs);
 		}
-		
 		return result;
 	}
 
@@ -122,23 +114,47 @@ public class MemberDao {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
-			
 			if(rs.next()) {
 				count=rs.getInt("count");
 			}
-			
 		}catch(Exception e) {
 			System.out.println("error: "+sql);
 			e.printStackTrace();
 		}finally {
 			DBConnection.closeDB(con, ps, rs);
 		}
-		
-		
 		return count;
 	}
 	
-	
-	
+	public int memberUpdate(MemberDto dto) {
+		int result=0;
+		String sql= "update member_황희원 set name='"+dto.getName()+"', area='"+dto.getArea()+"', age="+dto.getAge()+" where id='"+dto.getId()+"'";
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(sql);
+			result=ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Error: "+sql);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		return result;
+	}
+	public int memberdelete(String id) {
+		int result=0;
+		String sql="delete from member_황희원 where id='"+id+"'";
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(sql);
+			result=ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Error: "+sql);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		return result;
+	}
 	
 }

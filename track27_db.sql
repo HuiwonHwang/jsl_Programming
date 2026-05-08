@@ -103,3 +103,5 @@ update snack_황희원 set pname='',company='',price where pcode='';
 select max(pcode) from snack_황희원;
 
 update snack_황희원 set pname='양파깡' where pcode='"+update+"'
+
+update member_황희원 set name='', area='', age=1 where id='';
