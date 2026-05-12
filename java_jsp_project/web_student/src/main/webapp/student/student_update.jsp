@@ -1,40 +1,27 @@
-<%@page import="java.util.ArrayList"%>
 <%@page import="dto.StudentDto"%>
 <%@page import="dao.StudentDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	StudentDao dao = new StudentDao();
+	StudentDao dao=new StudentDao();
 	String syear=request.getParameter("t_syear");
 	String sclass=request.getParameter("t_sclass");
 	String sno=request.getParameter("t_sno");
-	StudentDto dto= dao.getSearchingSpecific(syear, sclass, sno);
+	StudentDto dto = dao.getSearchingSpecific(syear, sclass, sno);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>황희원 회원관리</title>
 <script type="text/javascript">
 	function goUpdate(){
 		var syear=stu.t_syear.value;
 		var sclass=stu.t_sclass.value;
 		var sno= stu.t_sno.value;
 		stu.method="post";
-		stu.action="student_update.jsp";
+		stu.action="db_student_update.jsp";
 		stu.submit();
-	}
-	function goDelete(){
-		var tf=confirm("<%=dto.getName()%>을 정말 삭제하시겠습니까?")
-		if (tf){
-			var syear=stu.t_syear.value;
-			var sclass=stu.t_sclass.value;
-			var sno= stu.t_sno.value;
-			stu.method="post";
-			stu.action="db_student_delete.jsp";
-			stu.submit();
-		}
-		
 	}
 </script>
 </head>
@@ -48,7 +35,11 @@
 					학년
 				</th>
 				<td>
-					<%=dto.getSyear() %>
+					<select name="t_syear";>
+						<option <%if(dto.getSyear().equals("1")) out.print("selected"); %> value="1">1학년</option>
+						<option <%if(dto.getSyear().equals("2")) out.print("selected"); %> value="2">2학년</option>
+						<option <%if(dto.getSyear().equals("3")) out.print("selected"); %> value="3">3학년</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -56,7 +47,7 @@
 					반
 				</th>
 				<td>
-					<%=dto.getSclass() %>
+					<input type="text" name="t_sclass" size="3" value="<%=dto.getSclass() %>">
 				</td>
 			</tr>
 			<tr>
@@ -64,7 +55,7 @@
 					번호
 				</th>
 				<td>
-					<%=dto.getSno() %>
+					<input type="text" name="t_sno" size="3" value="<%=dto.getSno() %>">
 				</td>
 			</tr>
 			<tr>
@@ -72,7 +63,7 @@
 					이름
 				</th>
 				<td>
-					<%=dto.getName() %>
+					<input type="text" name="t_name" size="5" value="<%=dto.getName() %>">
 				</td>
 			</tr>
 			<tr>
@@ -80,7 +71,7 @@
 					국어점수
 				</th>
 				<td>
-					<%=dto.getKor()%>
+					<input type="text" name="t_kor" size="4" value="<%=dto.getKor() %>">
 				</td>
 			</tr>
 			<tr>
@@ -88,7 +79,7 @@
 					영어점수
 				</th>
 				<td>
-					<%=dto.getEng() %>
+					<input type="text" name="t_eng" size="4" value="<%=dto.getEng() %>">
 				</td>
 			</tr>
 			<tr>
@@ -96,7 +87,7 @@
 					수학점수
 				</th>
 				<td>
-					<%=dto.getMat() %>
+					<input type="text" name="t_mat" size="4" value="<%=dto.getMat() %>">
 				</td>
 			</tr>
 		</table>
@@ -105,12 +96,8 @@
 				<th >
 					<input onclick="location.href='student_list.jsp'" type="button" value="회원 목록">
 					<input onclick="goUpdate();" type="button" value="회원 수정">
-					<input onclick="goDelete()" type="button" value="회원 삭제">
 				</th>
 			</tr></table>
-			<input type="hidden" name="t_syear" value="<%=dto.getSyear() %>">
-			<input type="hidden" name="t_sclass" value="<%=dto.getSclass() %>">
-			<input type="hidden" name="t_sno" value="<%=dto.getSno() %>">
 	</form>
 </body>
 </html>

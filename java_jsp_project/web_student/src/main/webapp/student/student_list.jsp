@@ -40,6 +40,10 @@
 		stu.action="student_view.jsp";
 		stu.submit();
 	}
+	
+	function goWriteForm(){
+		location.href="student_write.jsp";
+	}
 </script>
 </head>
 <body>
@@ -56,7 +60,7 @@
 		<input type="button" onclick="goSearch()" value="검 색">
 	</p>
 	
-	총인원 <%=dtos.size() %>명
+	총원 <%=dtos.size() %>명
 		<table width="500" border="1">
 		<col width="20%">
 		<col width="20%">
@@ -106,7 +110,7 @@
 			%>
 			<tr>
 				<th colspan="5">
-					<input type="button" value="회원 저장">
+					<input type="button" onclick="goWriteForm()" value="회원 등록">
 				</th>
 			</tr>
 		
