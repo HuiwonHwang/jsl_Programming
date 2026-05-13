@@ -19,7 +19,7 @@
 	String url="student_list.jsp";
 	if(count==0){
 		result=dao.studentSave(dto);
-		msg=result==1? "저장성공":"등록실패";
+		msg=result==1? "등록성공":"등록실패";
 		url=result==1?"student_list.jsp":"student_write.jsp";
 	}else{
 		 msg="중복된 학년,반,번호 입니다.";

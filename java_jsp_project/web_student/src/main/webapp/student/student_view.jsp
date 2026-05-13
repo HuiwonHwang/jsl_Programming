@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dto.StudentDto"%>
 <%@page import="dao.StudentDao"%>
@@ -9,32 +10,30 @@
 	String sclass=request.getParameter("t_sclass");
 	String sno=request.getParameter("t_sno");
 	StudentDto dto= dao.getSearchingSpecific(syear, sclass, sno);
+	int total=dto.getKor()+dto.getEng()+dto.getMat();
+	double ave= total/3.0;
+	DecimalFormat df= new DecimalFormat(".00");
+	
+	
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>황희원 회원관리</title>
 <script type="text/javascript">
 	function goUpdate(){
-		var syear=stu.t_syear.value;
-		var sclass=stu.t_sclass.value;
-		var sno= stu.t_sno.value;
+		
 		stu.method="post";
 		stu.action="student_update.jsp";
 		stu.submit();
 	}
 	function goDelete(){
-		var tf=confirm("<%=dto.getName()%>을 정말 삭제하시겠습니까?")
-		if (tf){
-			var syear=stu.t_syear.value;
-			var sclass=stu.t_sclass.value;
-			var sno= stu.t_sno.value;
+		if (confirm("<%=dto.getName()%>을 정말 삭제하시겠습니까?")){
 			stu.method="post";
 			stu.action="db_student_delete.jsp";
 			stu.submit();
 		}
-		
 	}
 </script>
 </head>
@@ -97,6 +96,22 @@
 				</th>
 				<td>
 					<%=dto.getMat() %>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					총점
+				</th>
+				<td>
+					<%=total%>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					수학점수
+				</th>
+				<td>
+					<%=df.format(ave) %>
 				</td>
 			</tr>
 		</table>

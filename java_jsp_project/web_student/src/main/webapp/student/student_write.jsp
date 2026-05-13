@@ -12,6 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>황희원 성적관리</title>
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
 <script type="text/javascript">
 	function goSave(){
 		if(stu.t_sclass.value==""){
@@ -24,12 +25,40 @@
 			stu.t_sno.focus();
 			return;
 		}
-		var kor=stu.t_kor.value;
+		var syear=stu.t_syear.value;
+		var sclass=stu.t_sclass.value;
+		var sno=stu.t_sno.value;
+		var goIng="yes";
+		$.ajax({
+			type :"POST",
+			url : "check_info.jsp",
+			async:false,
+			data: "t_syear="+syear+"&t_sclass="+sclass+"&t_sno="+sno,
+			dataType : "text",
+			error : function(){
+				alert('통신 실패!!!!!');
+			},
+			success : function(data){
+				var result=$.trim(data);
+				if(result=="중복"){
+					goIng="no";
+				}
+				//alert("=="+result+"==");
+			}
+		});	
+				
+		if(goIng=="no"){
+			alert("학년 반 번호 중복");
+			return;
+		}
+		
+		
 		if(stu.t_name.value==""){
 			alert("이름을 입력하시오");
 			stu.t_name.focus();
 			return;
 		}
+		var kor=stu.t_kor.value;
 		var tf= isNaN(kor);
 		if(tf){
 			alert("점수는 정수만 입력해주세요");
@@ -83,6 +112,7 @@
 		stu.method="post";
 		stu.action="db_student_save.jsp";
 		stu.submit();
+	
 	}
 </script>
 </head>

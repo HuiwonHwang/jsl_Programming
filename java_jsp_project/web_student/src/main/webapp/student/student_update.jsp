@@ -16,9 +16,6 @@
 <title>황희원 회원관리</title>
 <script type="text/javascript">
 	function goUpdate(){
-		var syear=stu.t_syear.value;
-		var sclass=stu.t_sclass.value;
-		var sno= stu.t_sno.value;
 		stu.method="post";
 		stu.action="db_student_update.jsp";
 		stu.submit();
@@ -35,11 +32,7 @@
 					학년
 				</th>
 				<td>
-					<select name="t_syear";>
-						<option <%if(dto.getSyear().equals("1")) out.print("selected"); %> value="1">1학년</option>
-						<option <%if(dto.getSyear().equals("2")) out.print("selected"); %> value="2">2학년</option>
-						<option <%if(dto.getSyear().equals("3")) out.print("selected"); %> value="3">3학년</option>
-					</select>
+					<%=dto.getSyear() %>
 				</td>
 			</tr>
 			<tr>
@@ -47,7 +40,7 @@
 					반
 				</th>
 				<td>
-					<input type="text" name="t_sclass" size="3" value="<%=dto.getSclass() %>">
+					<%=dto.getSclass() %>
 				</td>
 			</tr>
 			<tr>
@@ -55,7 +48,7 @@
 					번호
 				</th>
 				<td>
-					<input type="text" name="t_sno" size="3" value="<%=dto.getSno() %>">
+					<%=dto.getSno() %>
 				</td>
 			</tr>
 			<tr>
@@ -94,10 +87,13 @@
 		<table width="500" border="0">
 		<tr>
 				<th >
-					<input onclick="location.href='student_list.jsp'" type="button" value="회원 목록">
 					<input onclick="goUpdate();" type="button" value="회원 수정">
+					<input onclick="location.href='student_list.jsp'" type="button" value="회원 목록">
 				</th>
 			</tr></table>
+			<input type="hidden" name="t_syear" value="<%=dto.getSyear() %>">
+			<input type="hidden" name="t_sclass" value="<%=dto.getSclass() %>">
+			<input type="hidden" name="t_sno" value="<%=dto.getSno() %>">
 	</form>
 </body>
 </html>
