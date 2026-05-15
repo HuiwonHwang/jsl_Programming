@@ -78,7 +78,7 @@ public class AnimalDao {
 	}
 
 	//번호검색, update시 동물 불러오기, delete시 동물불러오기
-	public AnimalDto searchingByNumber(int searchingByNumber) {
+	public AnimalDto searchingByNumber(String searchingByNumber) {
 		AnimalDto dto = null;
 		String sql ="select no,name,kind,weight from animal_황희원 where no='"+searchingByNumber+"'";
 		
@@ -121,14 +121,14 @@ public class AnimalDao {
 	//이름검색
 	public ArrayList<AnimalDto> searchingByName(String nameForSearching) {
 		ArrayList<AnimalDto> dtos=new ArrayList<>();
-		String sql="select no,name,kind,weight from animal_황희원 where name like'%"+nameForSearching+"%'";
+		String sql="select no,name,kind,weight from animal_황희원 where name like'%"+nameForSearching+"%' order by no";
 		
 		try {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				String no = rs.getString("no");
 				String name = rs.getString("name");
 				String kind = rs.getString("kind");
@@ -148,7 +148,7 @@ public class AnimalDao {
 	}
 	
 	//수정
-	public int AnimalUpadte(int noForUpdate, String nameForUpdate, String kindForUpdate, int weightForUpdate) {
+	public int AnimalUpadte(String noForUpdate, String nameForUpdate, String kindForUpdate, int weightForUpdate) {
 		int result=0;
 		String sql ="update animal_황희원 set name='"+nameForUpdate+"',kind='"+kindForUpdate+"',weight="+weightForUpdate+" where no = '"+noForUpdate+"'";
 		
@@ -167,7 +167,7 @@ public class AnimalDao {
 	}
 	
 	//삭제
-	public int AnimalDelete(int noForDelete) {
+	public int AnimalDelete(String noForDelete) {
 		int result =0;
 		String sql="delete from animal_황희원 where no= '"+noForDelete+"' ";
 		
@@ -208,7 +208,38 @@ public class AnimalDao {
 		return result;
 	}
 
+	public ArrayList<AnimalDto> getAnimalListGubun(String gubun,String sname) {
+		ArrayList<AnimalDto> dtos = new ArrayList<>();
+		String sql= "";
+		if(gubun.equals("")) {sql= "select no,name,kind,weight from animal_황희원 where  name like'%"+sname+"%' order by no";}
+		else {
+			sql= "select no,name,kind,weight from animal_황희원 where kind like '%"+gubun+"%' and name like'%"+sname+"%' order by no";
 
+		}
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				String no = rs.getString("no");
+				String name = rs.getString("name");
+				String kind = rs.getString("kind");
+				int weight = rs.getInt("weight");
+				
+				AnimalDto dto = new AnimalDto(no,name,kind,weight);
+				dtos.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Error: "+sql);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		return dtos;
+	}
 	
 	
 }

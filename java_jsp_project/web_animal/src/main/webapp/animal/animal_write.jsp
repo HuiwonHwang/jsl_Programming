@@ -39,6 +39,10 @@
 			ani.t_name.focus();
 			return;
 		}
+		if(gubun==""){
+			alert("동물타입을 정하세요");
+			return;
+		}
 		if(weight==""){
 			alert("무게를 입력하세요");
 			ani.t_weight.focus();
@@ -50,6 +54,12 @@
 	}
 	function goCheck(){
 		var id=ani.t_id.value;
+		if(id==""){
+			alert("id를 입력하세요");
+			ani.t_id.focus();
+			return;
+		}
+		
 		$.ajax({
 			type :"POST",
 			url : "animal_checkId.jsp",
@@ -75,6 +85,8 @@
 <body>
 <form name=ani>
 	<table width="500" border="1">
+		<col width="20%"/>
+		<col width="*"/>
 		<tr>
 			<th>
 				번호
@@ -98,10 +110,8 @@
 				분류
 			</th>	
 			<td>
-				<select name="t_gubun">
-					<option value="l">지상동물</option>
-					<option value="o">해상동물</option>
-				</select>
+				<input type="radio" name="t_gubun" value="l">지상동물
+				<input type="radio" name="t_gubun" value="o">해상동물
 			</td>
 		</tr>
 		<tr>

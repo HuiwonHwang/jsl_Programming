@@ -7,16 +7,16 @@
 	request.setCharacterEncoding("utf-8");
 	AnimalDao dao = new AnimalDao();
 	ArrayList<AnimalDto> dtos= new ArrayList<>();
-	String searching=request.getParameter("t_gubun");
-	String name = request.getParameter("t_name");
+	String searching=request.getParameter("t_sgubun");
+	String name = request.getParameter("t_sname");
 	if(searching==null){
 		searching="";
 		name="";
 	}
 	if(searching.equals("")){
-		dtos=dao.getAnimalList();
-	}else{
 		dtos=dao.searchingByName(name);
+	}else{
+		dtos=dao.getAnimalListGubun(searching,name);
 	}
 	
 	int i=1;
@@ -29,13 +29,14 @@
 <script type="text/javascript">
 	function goView(id){
 		ani.t_id.value=id;
+		ani.method="post"
+		ani.action="animal_view.jsp";
+		ani.submit();
 	}
 	function goSave(){
 		location.href="animal_write.jsp"
 	}
 	function goSearching(){
-		
-		
 		ani.method="post"
 		ani.action="animal_list.jsp";
 		ani.submit();
@@ -45,12 +46,18 @@
 <body>
 <form action="" name="ani">
 	<p>검색
-	<select name=searching>
-		<option value="l" >지상동물</option>
-		<option value="o" >해상동물</option>
-	</select> <input type="button" onclick="goSearching()" value="검색"> </p>
+	<select name=t_sgubun>
+		<option value=""  >=전체=</option>
+		<option value="l" <%if(searching.equalsIgnoreCase("l"))out.print("selected"); %> >지상동물</option>
+		<option value="o" <%if(searching.equalsIgnoreCase("o"))out.print("selected"); %>>해상동물</option>
+	</select> <input type="text" placeholder="이름검색" name="t_sname" value="<%=name%>"> <input type="button"  onclick="goSearching()" value="검색"> </p>
+	총 <%=dtos.size() %> 마리
 	<table width="500" border="1">
-		
+		<col width="8%"/>
+		<col width="15%"/>
+		<col width="37%"/>
+		<col width="25%"/>
+		<col width="15%"/>
 		<tr>
 			<th>/</th>
 			<th>
@@ -70,7 +77,7 @@
 			<tr>
 			<th><%=i++ %></th>
 			<td>
-				<%=dto.getNo() %>
+				<a href="javascript:goView(<%=dto.getNo() %>)"><%=dto.getNo() %></a> 
 			</td>
 			<td>
 				<%=dto.getName() %>
@@ -84,7 +91,7 @@
 					%>
 			</td>
 			<td>
-				<%=dto.getWeight() %>
+				<%=dto.getWeight() %> kg
 			</td>
 		</tr>
 		<%} %>

@@ -4,20 +4,17 @@
     pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
-	AnimalDao dao=new AnimalDao();
-	String id= request.getParameter("t_id");
-	String name= request.getParameter("t_name");
-	String gubun= request.getParameter("t_gubun");
-	String weight= request.getParameter("t_weight");
+	String id=request.getParameter("t_id");
+	AnimalDao dao = new AnimalDao();
+	int result=dao.AnimalDelete(id);
 	String msg="";
 	String url="";
-	int result= dao.animalInsert(id, name.trim(), gubun,Integer.parseInt(weight.trim()));
 	if(result==1){
-		msg="저장 성공";
+		msg="삭제 성공";
 		url="animal_list.jsp";
 	}else{
-		msg="저장 실패";
-		url="animal_write.jsp";
+		msg="삭제 실패";
+		url="animal_view.jsp";
 	}
 	
 %>
@@ -27,8 +24,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	alert("<%=msg%>");
-	location.href="<%=url%>";
+	alert("삭제 성공");
+	location.href="animal_list.jsp"
 </script>
 </head>
 <body>
