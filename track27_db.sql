@@ -86,6 +86,8 @@ makedate date not null,  --제조일자
 foreign key(company) REFERENCES snack_company(company_code)
 );
 
+update snack_황희원 set pname='매운 새우깡',company='20',price=1900,makedate='2026-05-19' where pcode='P002';
+
 select count(*) from snack_황희원 where pcode='p001';
 insert into snack_황희원(pcode,pname,company, price,makedate) 
 values ('p004','초코파이','50',1450,'2026-04-20');

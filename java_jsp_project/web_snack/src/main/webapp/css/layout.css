@@ -1,0 +1,12 @@
+@charset "UTF-8";
+	*{margin: 0;padding: 0;}
+	h3{border:1px solid grey;
+		text-align: center;}
+	table{ border:none;}
+	table,h3 {margin: 10px auto; width:400px;}
+	.tablelist th{border:1px solid #000;border-collapse: collapse;}
+	.tablelist td{border:1px solid #000;border-collapse: collapse;}
+	
+	.tdCenter{text-align: center;}
+	.tdright{text-align: right;}
+	.txt{height:21px;width:70px}
