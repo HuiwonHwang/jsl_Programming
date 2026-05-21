@@ -8,10 +8,10 @@
 	SnackDao dao = new SnackDao();
 	String pcode = request.getParameter("t_pcode");
 	int result = dao.delete(pcode);
-	String msg="저장 실패";
-	String url="";
+	String msg="삭제 실패";
+	String url="snack_view.jsp";
 	if(result==1){
-		msg="저장 성공";
+		msg="삭제 성공";
 		url="snack_list.jsp";
 	}
 %>
@@ -22,7 +22,7 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	alert("<%=msg%>");
-	location.href="snack_list.jsp";
+	location.href="<%=url%>";
 </script>
 </head>
 <body>

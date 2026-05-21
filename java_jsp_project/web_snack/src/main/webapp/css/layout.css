@@ -1,12 +1,16 @@
 @charset "UTF-8";
-	*{margin: 0;padding: 0;}
+	*{margin: 0px;padding: 0px;}
+	
 	h3{border:1px solid grey;
 		text-align: center;}
 	table{ border:none;}
 	table,h3 {margin: 10px auto; width:400px;}
 	.tablelist th{border:1px solid #000;border-collapse: collapse;}
 	.tablelist td{border:1px solid #000;border-collapse: collapse;}
-	
+	.tablelist_500{width:500px}
 	.tdCenter{text-align: center;}
 	.tdright{text-align: right;}
 	.txt{height:21px;width:70px}
+	.inputTd{padding:3px;	}
+	a {text-decoration: none;color:#123;}
+	a:hover{ color:grey;}

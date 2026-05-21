@@ -23,7 +23,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>황희원 과자관리</title>
+<title>황희원 제품관리</title>
 <link href="../css/layout.css" rel="stylesheet">
 <script type="text/javascript">
 	function goView(pcode){
@@ -57,7 +57,7 @@
 	<col width="20%">
 	<col width="*">
 	<col width="20%">
-	<tr><th>Pcode</th><th>과자명</th><th>제조사</th></tr>
+	<tr><th>제품코드</th><th>제품명</th><th>제조사</th></tr>
 	<%
 	for(SnackDto dto: dtos){
 %>

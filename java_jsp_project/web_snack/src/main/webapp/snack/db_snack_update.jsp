@@ -26,7 +26,7 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	alert("<%=msg%>");
-	location.href="snack_list.jsp";
+	location.href="<%=url%>";
 </script>
 </head>
 <body>

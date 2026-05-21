@@ -193,7 +193,7 @@ public class SnackDao {
 	public int insert(String pcode2, String pname2, String company2, int price2, String makedate2) {
 		int insertResult =0;
 		String sql="insert into snack_황희원 (pcode,pname,company, price,makedate) "
-				+ "values ('"+pcode2+"','"+pname2+"','"+company2+"',"+price2+",'"+makedate2+"')";
+				+ "values ('"+pcode2.toUpperCase()+"','"+pname2+"','"+company2+"',"+price2+",'"+makedate2+"')";
 		try {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(sql);
